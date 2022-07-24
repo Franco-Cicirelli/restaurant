@@ -1,0 +1,192 @@
+@startuml
+
+
+Title Diagrama de Clases y Packages
+
+package domain{
+	class Salon{
+		List<Menu> menues
+		List<Mesa> mesas
+		List<Empleado> empleados
+		List<Comanda> comandas
+	}
+
+	class Mesa {
+		numero
+		cantidadComensales
+		estado
+	}
+
+	abstract class Empleado{
+		nombre
+    	legajo
+		fechaIngreso
+
+		{abstract} hacerAlgo()
+	}
+
+	class Mozo{
+		TipoMozo
+		List<Mesa> mesas
+		hacerAlgo()
+	}
+
+	class Cocinero{
+		añosExperiencia
+		hacerAlgo()
+	}
+
+	class Cheff{
+		titulo
+		hacerAlgo()
+	}
+
+
+
+	class Menu{
+		List<Consumibles> consumibles
+		tipoMenu
+
+		mostrarBebidas()
+		mostrarPlatos()
+	}
+
+	abstract class Consumible{
+		nombre
+		precio
+	}
+
+	class Plato{
+		descripcion
+		aptoVegano
+		aptoCeliaco
+	}
+
+	class Bebida{
+		tamanioCc
+		alcohol
+	}
+
+	class Comanda{
+		menu
+		List<Consumible> consumidos
+		mesa
+		mozo
+		cocinero
+		formaPago
+
+		Comanda()
+		get...()
+		set...()
+		equals()
+		hascode()
+		toString()
+
+	}
+
+
+	enum FormaPago{
+		EFECTIVO
+		TARJETA
+		DEBITO
+	}
+
+
+
+}
+
+Comanda -- Mesa
+Comanda -- Menu
+Comanda -- Consumible
+Comanda -- Mozo
+Comanda -- Cocinero
+Comanda -- FormaPago
+
+
+
+Menu -- Consumible
+Consumible <|-- Bebida
+Consumible <|-- Plato
+
+
+Salon "1" o--- "1..*" Mesa
+Salon "1" o--- "1..*" Empleado
+Salon "1" o--- "1..*" Menu
+Salon "1" o--- "0..*" Comanda
+
+Empleado <|-- Mozo
+Empleado <|-- Cocinero
+Cocinero <|-- Cheff
+
+Mozo -- Mesa
+
+package service{
+
+	class SalonService{
+		+ agregarMesa()
+	    + borrarMesa()
+	    + asignarMesa(Mozo, Mesa)
+	    + agregarMenu(Menu)
+
+	   	+pedidosPorCocinero()
+	   	+pedidoConMasBebidas()
+	}
+
+	class ComandaService {
+		- MenuService
+		- EmpleadoService
+		- MesaService
+
+		+ Comanda(MenuService, EmpleadoService, MesaService)
+
+		+ crearComanda(Mesa, Mozo, Cocinero, Menu)
+		+ agregarConsumible(Comanda, Consumible)
+		+ calcularTotal(Comanda, FormaPago)
+		- calcularDescuento(Consumible, FormaPago)
+		+ liberaMesa(Comanda)
+
+	}
+
+	class MenuService{
+		- ConsumibleService cs
+
+		+ MenuService(ConsumibleService)
+
+		+ crearMenu()
+		+ agregarConsumible(Menu, Consumible)
+		+ borrarConsumible(Menu, Consumible)
+		+ obtenerBebidas(Menu)
+		+ obtenerPlatos(Menu)
+	}
+
+	class ConsumibleService{
+		+ crearPlato()
+		+ crearBebida()
+		+ modificarPlato()
+		+ modificarBebida()
+		+ borrarPlato()
+		+ borrarBebida()
+	}
+
+
+	class MozoService{
+	}
+
+	class CocineroService{
+		+ recibeServicio(Comanda)
+		+ despachaServicio(Comanda)
+	}
+
+}
+
+package test{
+
+	class main{}
+
+}
+
+
+
+test .. service
+service -- domain
+@enduml
