@@ -11,13 +11,22 @@ public class RestaurantTest {
 		// Inicialización de servicios
 		MesaServicio mesaServicio = new MesaServicio();
 		
+		//consumible servicio
 		ConsumibleServicio consumibleServicio = new ConsumibleServicio();
+		
+		//menu servicio
+		MenuServicio menuServicio = new MenuServicio(consumibleServicio);
+		
+		Menu primerMenu = menuServicio.crearMenu();
+		
+		
+		
 		
 		
 		//Plato
 		System.out.println(consumibleServicio.crearPlato("Doble cuarto", 5.5, "hamburguesa doble con queso",false,false));
-		System.out.println(consumibleServicio.borrarConsumible("doble cuarto"));
-		System.out.println(consumibleServicio.crearPlato("Doble cuarto", 5.5, "hamburguesa doble con queso",false,false));
+		//System.out.println(consumibleServicio.borrarConsumible("doble cuarto"));
+		System.out.println(consumibleServicio.crearPlato("Ravioles", 5.5, "hamburguesa doble con queso",false,false));
 		System.out.println(consumibleServicio.modificarPrecio("Doble cuarto", 7.5));
 		
 		System.out.println("\n");
@@ -28,9 +37,35 @@ public class RestaurantTest {
 		System.out.println(consumibleServicio.crearBebida("cimes cola", 50.0,500,false));
 		System.out.println(consumibleServicio.crearBebida("manaos cola", 50.0,500,false));
 		
+		//Menu Servicio
+		System.out.println("\nMenu servicio\n");
+		
+		//*agrego consumibles al menu
+		
+		System.out.println(menuServicio.agregarConsumible(primerMenu,consumibleServicio.consumibles.get(0)));
+		System.out.println(menuServicio.agregarConsumible(primerMenu,consumibleServicio.consumibles.get(0)));
+		System.out.println(menuServicio.agregarConsumible(primerMenu,consumibleServicio.consumibles.get(1)));
+		System.out.println(menuServicio.agregarConsumible(primerMenu,consumibleServicio.consumibles.get(2)));
+		System.out.println(menuServicio.agregarConsumible(primerMenu,consumibleServicio.consumibles.get(3)));
 		
 		
+		//*compruebo que los consumibles agregados se encuentren la lista de consumibles 
+		
+		
+		Plato plato2 = new Plato ("Doble cuarto", 5.5, "hamburguesa doble con queso",false,false);
+		Plato plato1 = new Plato ("Ravioles espinaca",70.0,"Cuadretti rellenos de ricotta, parmesano y espinca",false,false);
+		System.out.println(menuServicio.agregarConsumible(primerMenu, plato1 ));
+		System.out.println(menuServicio.agregarConsumible(primerMenu, plato2 ));
+		
+		//*Compruebo el metodo de borrado de menu servicio
+		/*System.out.println(menuServicio.borrarConsumible(primerMenu, plato1));
+		System.out.println(menuServicio.borrarConsumible(primerMenu, consumibleServicio.consumibles.get(0)));*/
 
+		System.out.println("\nMenu platos - mostrar\n");
+		//*obtengo platos y bebidas
+		 menuServicio.obtenerPlatos(primerMenu);
+		 menuServicio.obtenerBebidas(primerMenu);
+		
 		// Creación de los escenarios
 		Mesa mesax2n1 = MesaHelper.crearMesax2(mesaServicio);
 		Mesa mesax4n3 = MesaHelper.crearMesax4(mesaServicio);
