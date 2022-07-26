@@ -4,11 +4,13 @@ public abstract class Empleado {
 	private String nombre;
 	private Integer legajo;
 	private String fechaIngreso;
+	private Boolean trabajando;
 	
 	public Empleado(String nombre, Integer legajo, String fechaIngreso) {
 		this.nombre = nombre;
 		this.legajo = legajo;
 		this.fechaIngreso = fechaIngreso;
+		this.trabajando = false;
 	}
 
 	public String getNombre() {
@@ -40,6 +42,23 @@ public abstract class Empleado {
 		return "Empleado [nombre=" + nombre + ", legajo=" + legajo + ", fechaIngreso=" + fechaIngreso + "]";
 	}
 	
+	public static String comenzarTrabajo (boolean trabajar) {
+
+		if(trabajar)
+		{
+			return "He comenzado a trabajar";
+		}
+		
+		return "He terminado mi horario laboral";
+	}
+
+	public Boolean isTrabajando() {
+		return trabajando;
+	}
+
+	public void setTrabajando(Boolean trabajando) {
+		this.trabajando = trabajando;
+	}
 	
 	
 }

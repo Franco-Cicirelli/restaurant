@@ -77,7 +77,8 @@ public class RestaurantTest {
 		mesaServicio.mostrar(mesax2n1);
 		mesaServicio.mostrar(mesax2n2);
 		mesaServicio.mostrar(mesax4n3);
-
+		
+		
 		System.out.println("2. Ocupar mesa 1");
 		mesaServicio.ocupar(mesax2n1);
 

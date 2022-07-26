@@ -10,6 +10,10 @@ public class Comanda {
 	private Cocinero cocinero;
 	private FormaPago formaPago;
 	
+	public Comanda() {
+		
+	}
+	
 	public Comanda(Menu menu, List<Consumible> consumidos, Mesa mesa, Mozo mozo, Cocinero cocinero,
 			FormaPago formaPago) {
 		this.menu = menu;
