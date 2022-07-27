@@ -12,6 +12,11 @@ public class EmpleadoServicio {
 	public MozoServicio mozoServicio = new MozoServicio();
 	public CocineroServicio cocineroServicio = new CocineroServicio();
 
+	
+	public EmpleadoServicio() {
+
+	}
+
 	public EmpleadoServicio(MozoServicio mozoServicio,CocineroServicio cocineroServicio) {
 		
 		this.cocineroServicio = cocineroServicio;

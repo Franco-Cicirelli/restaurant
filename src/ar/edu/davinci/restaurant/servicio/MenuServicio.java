@@ -109,5 +109,18 @@ public class MenuServicio {
 	public String mostrarMenu(Menu menu) {
 		return menu.toString();
 	}
+	
+	public Boolean consumiblePorNombre (Consumible c) {
+		if (c == null) {
+			return false;
+		}
+		for (Consumible consumible : consumibleMenu) {
+			if(consumible.getNombre().equals(c.getNombre()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
