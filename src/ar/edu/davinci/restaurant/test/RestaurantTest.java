@@ -33,7 +33,7 @@ public class RestaurantTest {
 		//Plato
 		System.out.println(consumibleServicio.crearPlato("Asado", 5.5, "Asado de tira",false,false));
 		//System.out.println(consumibleServicio.borrarConsumible("doble cuarto"));
-		System.out.println(consumibleServicio.crearPlato("Ravioles", 5.5, "Ravioles de espinaca",true,false));
+		System.out.println(consumibleServicio.crearPlato("Ravioles", 5.5, "Ravioles de espinaca",false,false));
 		System.out.println(consumibleServicio.modificarPrecio("Asado", 7.5));
 		
 		System.out.println("\n");
@@ -117,12 +117,13 @@ public class RestaurantTest {
 
 		System.out.println("\nComandita agregar consumible");
 		
-		comandaServicio.agregarConsumible(comandita, consumibleServicio.consumibles.get(0));
-		comandaServicio.agregarConsumible(comandita, consumibleServicio.consumibles.get(1));
+		System.out.println(comandaServicio.agregarConsumible(comandita, consumibleServicio.consumibles.get(0)));
+		System.out.println(comandaServicio.agregarConsumible(comandita, consumibleServicio.consumibles.get(1)));
 		System.out.println("\nComandita agregar consumible error");
 		
-		comandaServicio.agregarConsumible(comandita, plato3);
-		comandaServicio.agregarConsumible(comandita, plato1);
+		System.out.println(comandaServicio.agregarConsumible(comandita, plato3));
+		System.out.println(comandaServicio.agregarConsumible(comandita, plato1));
+		System.out.println(comandaServicio.agregarConsumible(comandita, consumibleServicio.consumibles.get(3)));
 		
 		//Por que los platos no se agregan :
 		// Los platos como plato1 , plato2, plato3 
@@ -134,6 +135,18 @@ public class RestaurantTest {
 		
 		System.out.println("\nComandita get consumidos\n");
 		System.out.println(comandita.getConsumidos());
+		
+		
+		//total
+		
+		Double totalComanda = comandaServicio.calcularTotal(comandita, FormaPago.EFECTIVO);
+		System.out.println("El total de la comanda es de " + totalComanda);
+		
+		CocineroServicio CocineroServicio = new CocineroServicio();
+		
+		CocineroServicio.recibeServicio(comandita);
+				
+	
 	}
 
 	private static void mostrar(MesaServicio mesaServicio, Mesa mesax2n1, Mesa mesax2n2, String mensaje) {
