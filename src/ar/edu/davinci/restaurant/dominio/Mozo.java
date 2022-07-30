@@ -1,13 +1,14 @@
 package ar.edu.davinci.restaurant.dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mozo extends Empleado {
-	private List<Mesa> mesas;
+	private List<Mesa> mesas ;
 	
-	public Mozo(String nombre, Integer legajo, String fechaIngreso, List<Mesa> mesas) {
+	public Mozo(String nombre, Integer legajo, String fechaIngreso) {
 		super(nombre, legajo, fechaIngreso);
-		this.mesas = mesas;
+		this.mesas = new ArrayList<>();
 	}
 
 	public List<Mesa> getMesas() {
@@ -17,14 +18,22 @@ public class Mozo extends Empleado {
 	public void setMesas(List<Mesa> mesas) {
 		this.mesas = mesas;
 	}
+	
+	public void addMesas (Mesa mesa){
+		this.mesas.add(mesa);
+	}
 
 	@Override
 	public String toString() {
-		return "Mozo [mesas=" + mesas + "]";
+		return "\nMozo [mesas = " 
+				+ mesas 
+				+ " - Nombre = "
+				+ this.getNombre();
 	}
 	
 	public Boolean disponibilidadMozo()
 	{
+		
 		boolean disponibilidad = true;
 		//capacidad maxima de trabajo 3 mesas
 		if(this.mesas.size() >= 3)

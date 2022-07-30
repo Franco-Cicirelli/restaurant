@@ -74,9 +74,25 @@ public class Comanda {
 
 	@Override
 	public String toString() {
-		return "Comanda [menu=" + menu + ", consumidos=" + consumidos + ", mesa=" + mesa + ", mozo=" + mozo
-				+ ", cocinero=" + cocinero + ", formaPago=" + formaPago + "]";
+		return "\n********* Comanda *******\n"
+				+" \n - Menu = " 
+				+ menu.getTipoMenu()
+				+" \n - Items"
+				+ menu.getConsumibles()
+				+ "\n - Consumidos = \n" 
+				+ consumidos
+				+ "\n - Mesa = " 
+				+ mesa.getNumero() 
+				+ "\n - Mozo = " 
+				+ mozo.getNombre()
+				+ "\n - Cocinero = " 
+				+ cocinero.getNombre()
+				+ "\n - Forma de Pago = " 
+				+ formaPago 
+				+ "\n*************************";
 	}
+	
+	
 	
 	
 	

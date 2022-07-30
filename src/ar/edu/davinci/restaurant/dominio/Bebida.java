@@ -34,7 +34,14 @@ public class Bebida extends Consumible {
 
 	@Override
 	public String toString() {
-		return "Bebida nombre:"+this.getNombre()+"[tamanioCc=" +  tamanioCc + ", alcohol=" + alcohol + "]";
+		return "\n---Bebida---\n"
+				+"- Nombre: "
+				+this.getNombre()
+				+"\n- TamanioCc: " 
+				+  tamanioCc 
+				+"\n- Alcohol: " 
+				+ alcohol 
+				+ "\n-------------";
 	}
 	
 	

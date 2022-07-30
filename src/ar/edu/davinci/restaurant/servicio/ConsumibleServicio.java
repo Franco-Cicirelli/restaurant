@@ -15,7 +15,7 @@ public class ConsumibleServicio {
 	
 	// crear un nuevo plato
 	
-	public String crearPlato(String nombre, Double precio, String descripcion, Boolean aptoVegano,
+	public Plato crearPlato(String nombre, Double precio, String descripcion, Boolean aptoVegano,
 			Boolean aptoCeliaco) {
 
 		Plato nuevoPlato = new Plato(nombre, precio, descripcion, aptoVegano, aptoCeliaco);
@@ -23,18 +23,20 @@ public class ConsumibleServicio {
 		for (Consumible plato : consumibles) {
 
 			if (plato.getNombre().equals(nuevoPlato.getNombre())) {
-				return "El plato ya existe";
+				System.out.println("El plato ya existe"); 
+				return null;
 
 			}
 		}
 		consumibles.add(nuevoPlato);
-		return "El plato" + nuevoPlato.toString() + " creada exitosamente";
+		System.out.println("El plato" + nuevoPlato.toString() + " creada exitosamente");
+		return nuevoPlato;
 
 	}
 	
 	//crear una nueva bebida
 	
-	public String crearBebida (String nombre, Double precio, Integer tamanioCc, Boolean alcohol) {
+	public Bebida crearBebida (String nombre, Double precio, Integer tamanioCc, Boolean alcohol) {
 		
 		Bebida nuevaBebida = new Bebida (nombre, precio,tamanioCc,alcohol);
 		
@@ -43,12 +45,13 @@ public class ConsumibleServicio {
 			
 			
 			if(bebida.getNombre().equals(nuevaBebida.getNombre())){
-				return "La bebida ya existe";
-				
+				System.out.println("La bebida ya existe"); 
+				return null;
 			}
 		}
 		consumibles.add(nuevaBebida);
-		return "La bebida" + nuevaBebida.toString()+ " creada exitosamente";
+		System.out.println("La bebida" + nuevaBebida.toString()+ " creada exitosamente"); 
+		return nuevaBebida;
 	}
 	
 	//borrar un consumible

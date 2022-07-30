@@ -34,7 +34,7 @@ public class Menu {
 
 	@Override
 	public String toString() {
-		return "Menu [consumibles=" + consumibles + ", tipoMenu=" + tipoMenu + "]";
+		return "Menu [consumibles=\n" + consumibles + ", tipoMenu=" + tipoMenu + "]";
 	}
 	
 	

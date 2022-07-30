@@ -27,10 +27,12 @@ public class ComandaServicio {
 		this.empleadoServicio = empleadoServicio;
 	}
 	
+	
 	public Comanda crearComanda (Mesa mesa, Mozo mozo, Cocinero cocinero, Menu menu) {
 		
 		// Inicializo una lista de consimible vacia
 		List<Consumible> consumidos = new ArrayList<Consumible>();
+		
 		
 		Comanda comanda = new Comanda(menu,consumidos,mesa,mozo,cocinero,FormaPago.EFECTIVO);
 		
@@ -41,11 +43,30 @@ public class ComandaServicio {
 		return null;
 	}
 	
-	
+	static Boolean validacionMesa(Mozo mozo, Mesa mesa) {
+		
+		if(mozo.getMesas().isEmpty()) {
+			System.out.println("El mozo no tiene mesas asignadas");
+		}
+		if (!(mozo.getMesas().contains(mesa))) {
+			System.out.println("El mozo " + mozo.getNombre() + " no tiene asignada esta mesa " + mesa.getNumero());
+			return false;
+		}
+		System.out.println("Validacion correcta");
+		return true;
+
+	}
+
 	//Validacion de comanda
-	public static Boolean validarComanda (Comanda comanda) {
+	static Boolean validarComanda (Comanda comanda) {
 		
 		// Verifico que la mesa este ocupada
+		// Verifico que el mozo
+		
+		if(!(validacionMesa(comanda.getMozo(),comanda.getMesa()))){
+			return false;
+		}
+		
 		if (comanda.getMesa().isOcupado() != true) {
 			System.out.println("La mesa " + comanda.getMesa().getNumero() + " todavia no esta en servicio");
 			return false;
@@ -59,7 +80,7 @@ public class ComandaServicio {
 
 		// Verifico que el mozo
 		if (comanda.getMozo().disponibilidadMozo() == false) {
-			System.out.println("El mozo " + comanda.getMozo().getNombre() + " se encuentra con trabajando");
+			System.out.println("El mozo " + comanda.getMozo().getNombre() + " se encuentra trabajando");
 			return false;
 		}
 
@@ -68,13 +89,15 @@ public class ComandaServicio {
 			System.out.println("El menu " + comanda.getMenu().getTipoMenu() + " se encuentra vacio");
 			return false;
 		}
-
+		
+		comanda.getMozo().setTrabajando(true);
 		return true;
 	}
 	
+	
 	// Agregar consumible en comanda
 	
-	public String agregarConsumible(Comanda comanda, Consumible c) {
+	public String agregarConsumibleComanda(Comanda comanda, Consumible c) {
 		
 		if(menuServicio.cs.consumibles.contains(c))
 		{
@@ -85,16 +108,7 @@ public class ComandaServicio {
 		return "no existe ese plato en el menu " + comanda.getMenu().getTipoMenu();
 	}
 	
-
-		
-	
-	/*
-	 * En el caso que una mesa realice el pago en efectivo se le hará un descuento que se 
-	calculará de la siguiente forma: A los platos pedidos se les descontará un 5% salvo a los 
-	platos veganos que no llevan descuento y en el caso de los platos aptos para celíacos 
-	tendrán un 7% de descuento . En el caso de las bebidas consumidas, el 
-	descuento es de 10% para las que no contiene alcohol y de 3% en para las que si 
-	contienen. */
+	// Aplicar descuento
 	
 	public double aplicarDescuento(Consumible consumible, FormaPago f) {
 
@@ -142,9 +156,10 @@ public class ComandaServicio {
 	
 	// Calcular total
 	
-	public Double calcularTotal (Comanda comanda , FormaPago f) {
+	public Double calcularTotalConDesc (Comanda comanda, FormaPago f) {
 		
 		double total = 0;
+		comanda.setFormaPago(f);
 		
 		for (Consumible consumible : comanda.getConsumidos()) {
 			total += aplicarDescuento(consumible, f);
@@ -153,7 +168,61 @@ public class ComandaServicio {
 		return total;
 	}
 	
-	// liberar mesa
+	// Calcular total sin descuento
+	
+	public Double calcularTotalsinDesc (Comanda comanda) {
+		
+		double total = 0;
+		
+		for (Consumible consumible : comanda.getConsumidos()) {
+			total += consumible.getPrecio();
+		}
+		
+		return total;
+	}
+	
+	// Liberar mesa
+	
+	public void liberarServicio (Comanda comanda) {
+		
+		double total = calcularTotalsinDesc(comanda);
+		
+		if(total > 0)
+		{
+			mesaServicio.liberar(comanda.getMesa());
+			
+			// tomo el mozo y remuevo de su lista de mesas la mesa liberada
+			
+			comanda.getMozo().getMesas().remove(comanda.getMesa());
+			
+			System.out.println("La mesa se encuentra disponible para su uso") ;
+		}
+		
+		System.out.println("No es valido el pedido de liberacion");
+	}
+	
+	public void mostrarComanda(Comanda comanda) {
+		StringBuilder str = new StringBuilder();
+		str.append("********Comanda*********\n");
+		str.append("\n");
+		str.append("Menu : ");
+		str.append(comanda.getMenu().getTipoMenu());
+		str.append("\n");
+		str.append("Consumidos: ");
+		str.append(comanda.getConsumidos());
+		str.append("\n");
+		str.append("Mozo: ");
+		str.append(comanda.getMozo().getNombre());
+		str.append("\n");
+		str.append("Cocinero: ");
+		str.append(comanda.getCocinero().getNombre());
+		str.append("\n");
+		str.append("Forma De Pago: ");
+		str.append(comanda.getFormaPago());
+		str.append("\n");
+		str.append("\n*************************");
+		System.out.println(str.toString());
+	}
 	
 	
 }

@@ -39,8 +39,14 @@ public class Plato extends Consumible {
 
 	@Override
 	public String toString() {
-		return "Plato [descripcion=" + descripcion + ", aptoVegano=" + aptoVegano + ", aptoCeliaco=" + aptoCeliaco
-				+ "]";
+		return "\n----Plato----"
+				+ "\n-Descripcion: "
+				+ descripcion 
+				+ "\n-Apto vegano: " 
+				+ aptoVegano 
+				+ "\n-Apto celiaco: " 
+				+ aptoCeliaco
+				+ "\n";
 	}
 	
 	

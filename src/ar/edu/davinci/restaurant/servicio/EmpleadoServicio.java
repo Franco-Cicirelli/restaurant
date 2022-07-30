@@ -23,8 +23,8 @@ public class EmpleadoServicio {
 		this.mozoServicio = mozoServicio;
 	}
 
-	public Mozo crearMozo(String nombre, Integer legajo, String fechaIngreso, List<Mesa> mesas) {
-		return new Mozo(nombre, legajo, fechaIngreso, mesas);
+	public Mozo crearMozo(String nombre, Integer legajo, String fechaIngreso) {
+		return new Mozo(nombre, legajo, fechaIngreso);
 	}
 
 	public Cocinero crearCocinero(String nombre, Integer legajo, String fechaIngreso, Integer aniosExperiencia) {

@@ -50,8 +50,15 @@ public class Salon {
 
 	@Override
 	public String toString() {
-		return "Salon [menues=" + menues + ", mesas=" + mesas + ", empleados=" + empleados + ", comandas=" + comandas
-				+ "]";
+		return "Salon [menues=\n" 
+				+ menues.toString() 
+				+ "\nMesas=\n"
+				+ mesas 
+				+ "\nEmpleados=\n" 
+				+ empleados 
+				+ "\nComandas y Consumibles\n" 
+				+ comandas.toString()
+				+ "\n]";
 	}
 	
 	

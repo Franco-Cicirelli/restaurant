@@ -28,11 +28,13 @@ public class CocineroServicio {
 			System.out.println("Este pedido ya fue anotado");
 			return false;
 		}
-
+		
+		comanda.getCocinero().addTotalPedidos();
 		comanda.getCocinero().addNumeroDePedidos();
 		pedidos.add(comanda);
-		System.out.println("La comanda fue recibida exitomsamente " + comanda.getCocinero().getNombre()
+		System.out.println("La comanda fue recibida exitosamente " + comanda.getCocinero().getNombre()
 				+ " comenzara a preparar el pedido");
+
 		return true;
 	}
 
@@ -40,14 +42,15 @@ public class CocineroServicio {
 
 		if (!(pedidos.contains(comanda))) {
 			System.out.println("Este pedido nunca fue anotado");
+			
 			return false;
 		}
 
 		comanda.getCocinero().decreaseNumeroDePedidos();
 		pedidos.remove(comanda);
-		System.out.println("La comanda fue despachada exitomsamente en la mesa" 
-				+ comanda.getMesa().getNumero()
-				+ comanda.getCocinero().getNombre());
+		System.out.println("La comanda fue despachada exitomsamente en la mesa" + comanda.getMesa().getNumero()
+				+"\nDespachado por "+ comanda.getCocinero().getNombre());
+		
 		return true;
 	}
 

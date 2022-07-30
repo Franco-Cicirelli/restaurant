@@ -17,13 +17,15 @@ public class MenuServicio {
 	public MenuServicio(ConsumibleServicio cs) {
 		this.cs = cs;
 	}
-
+	
+	// crear menu	
+	
 	public Menu crearMenu() {
 		numero++;
 		return new Menu(consumibleMenu, numero);
 	}
 
-	public String agregarConsumible(Menu menu, Consumible consumible) {
+	public void agregarConsumibleAlMenu(Menu menu, Consumible consumible) {
 
 		// verifico si el menu contiene el consumible del parametro
 
@@ -32,22 +34,23 @@ public class MenuServicio {
 			// verifico si consumibles permitidos contiene el consumible del parametro
 			if (!(cs.consumibles.contains(consumible))) {
 
-				return "No se ha adherido al menu. Este producto " + consumible.getNombre()
-						+ " no se encuentra en la lista de consumibles permitidos " + menu.getTipoMenu();
+				System.out.println( "No se ha adherido al menu. Este producto " + consumible.getNombre()
+						+ " no se encuentra en la lista de consumibles permitidos " + menu.getTipoMenu());
 
 			}
 
 			menu.addConsumibles(consumible);
 
-			return "El consumible " + consumible.getNombre() + " ha sido exitosamente unido al menu ";
+			System.out.println("El consumible " + consumible.getNombre() + " ha sido exitosamente unido al menu "); 
 
 		}
 
-		return "Este consumible " + consumible.getNombre() + " ya se encuentra en el menu";
+		System.out.println("Este consumible " + consumible.getNombre() + " ya se encuentra en el menu"); 
 	}
 
 	// borrar
-	public String borrarConsumible(Menu menu, Consumible consumible) {
+	
+	public void borrarConsumible(Menu menu, Consumible consumible) {
 
 		// verifico si el menu contiene el consumible del parametro
 
@@ -55,11 +58,11 @@ public class MenuServicio {
 
 			menu.getConsumibles().remove(consumible);
 
-			return "El consumible " + consumible.getNombre() + " ha sido exitosamente borrado del menu ";
+			System.out.println("El consumible " + consumible.getNombre() + " ha sido exitosamente borrado del menu "); 
 
 		}
 
-		return "Ha ocurrido un error: Este consumible " + consumible.getNombre() + " no se encuentra en el menu";
+		System.out.println("Ha ocurrido un error: Este consumible " + consumible.getNombre() + " no se encuentra en el menu"); 
 	}
 
 	// obtener platos menu
@@ -105,6 +108,8 @@ public class MenuServicio {
 
 		}
 	}
+	
+	// mostrar menu
 
 	public String mostrarMenu(Menu menu) {
 		return menu.toString();
