@@ -15,16 +15,28 @@ import ar.edu.davinci.restaurant.dominio.Plato;
 
 public class ComandaServicio {
 
-	public MenuServicio menuServicio = new MenuServicio( new ConsumibleServicio ());
-	public MesaServicio mesaServicio = new MesaServicio();
-	public EmpleadoServicio empleadoServicio = new EmpleadoServicio (new MozoServicio(),new CocineroServicio());
+	private MenuServicio menuServicio = new MenuServicio( new ConsumibleServicio ());
+	private MesaServicio mesaServicio = new MesaServicio();
+	private EmpleadoServicio empleadoServicio = new EmpleadoServicio (new MozoServicio(),new CocineroServicio());
 	
-	
+
+
+
 	public ComandaServicio (MenuServicio menuServicio,MesaServicio mesaServicio,EmpleadoServicio empleadoServicio)
 	{
 		this.menuServicio = menuServicio;
 		this.mesaServicio = mesaServicio;
 		this.empleadoServicio = empleadoServicio;
+	}
+	
+	
+	public MesaServicio getMesaServicio() {
+		return mesaServicio;
+	}
+
+
+	public void setMesaServicio(MesaServicio mesaServicio) {
+		this.mesaServicio = mesaServicio;
 	}
 	
 	
@@ -80,7 +92,11 @@ public class ComandaServicio {
 
 		// Verifico que el mozo
 		if (comanda.getMozo().disponibilidadMozo() == false) {
-			System.out.println("El mozo " + comanda.getMozo().getNombre() + " se encuentra trabajando");
+			System.out.println("****Error****\nEl mozo " + comanda.getMozo().getNombre() 
+					+ " tiene mas mesas de las que puede atender . Mesas atendiendo: " 
+					+ comanda.getMozo().getMesas().size()
+					+ "\nAsignar la mesa " + comanda.getMesa().getNumero() + " a otro mozo "
+					);
 			return false;
 		}
 
@@ -197,8 +213,11 @@ public class ComandaServicio {
 			
 			System.out.println("La mesa se encuentra disponible para su uso") ;
 		}
+		else
+		{
+			System.out.println("No es valido el pedido de liberacion");
+		}
 		
-		System.out.println("No es valido el pedido de liberacion");
 	}
 	
 	public void mostrarComanda(Comanda comanda) {

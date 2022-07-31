@@ -74,6 +74,7 @@ public class Comanda {
 
 	@Override
 	public String toString() {
+		
 		return "\n********* Comanda *******\n"
 				+" \n - Menu = " 
 				+ menu.getTipoMenu()
@@ -89,6 +90,8 @@ public class Comanda {
 				+ cocinero.getNombre()
 				+ "\n - Forma de Pago = " 
 				+ formaPago 
+				+ "\n - Cantidad de productos consumidos = "
+				+ consumidos.size()
 				+ "\n*************************";
 	}
 	

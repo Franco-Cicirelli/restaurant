@@ -19,18 +19,42 @@ import ar.edu.davinci.restaurant.test.MesaHelper;
 
 public class SalonServicio {
 
-	public List<Menu> menues = new ArrayList<>();
-	public List<Mesa> mesas = new ArrayList<>();
-	public List<Empleado> empleados = new ArrayList<>();
-	public List<Comanda> comandas = new ArrayList<>();
+	private ConsumibleServicio consumibleServicio = new ConsumibleServicio();
+	private EmpleadoServicio empleadosServicio = new EmpleadoServicio();
+	private CocineroServicio cocineroServicio = new CocineroServicio();
 
-	public SalonServicio() {
+	private MesaServicio mesaServicio = new MesaServicio();
+	private MenuServicio menuServicio = new MenuServicio(consumibleServicio);
+	private ComandaServicio comandaServicio = new ComandaServicio(menuServicio, mesaServicio, empleadosServicio);
 
+	private List<Menu> menues = new ArrayList<>();
+	private List<Mesa> mesas = new ArrayList<>();
+	private List<Empleado> empleados = new ArrayList<>();
+	private List<Comanda> comandas = new ArrayList<Comanda>();
+
+	public SalonServicio(ComandaServicio comandaServicio) {
+		this.comandaServicio = comandaServicio;
 	}
 
 	public Salon crearSalon() {
 
 		return new Salon(menues, mesas, empleados, comandas);
+	}
+
+	public ComandaServicio getComandaServicio() {
+		return comandaServicio;
+	}
+
+	public void setComandaServicio(ComandaServicio comandaServicio) {
+		this.comandaServicio = comandaServicio;
+	}
+
+	public CocineroServicio getCocineroServicio() {
+		return cocineroServicio;
+	}
+
+	public void setCocineroServicio(CocineroServicio cocineroServicio) {
+		this.cocineroServicio = cocineroServicio;
 	}
 
 	// Agregar mesa
@@ -78,6 +102,7 @@ public class SalonServicio {
 			comandas.add(comanda);
 		} else {
 			System.out.println("La comanda ya se encuentra en el salon");
+
 		}
 	}
 
@@ -129,61 +154,42 @@ public class SalonServicio {
 		mozos.clear();
 	}
 
-	public String pedidoConMasConsumibles() {
-		Comanda masConsumibles = new Comanda();
+	public Comanda pedidoConMasConsumibles() {
+		Comanda masConsumibles = comandas.get(0);
 
 		for (Comanda comanda : comandas) {
-			if (comanda.getConsumidos().size() > masConsumibles.getConsumidos().size()) {
-				masConsumibles = comanda;
+			if (comanda.getConsumidos().size() > 0) {
+				if (comanda.getConsumidos().size() > masConsumibles.getConsumidos().size()) {
+					masConsumibles = comanda;
+				}
 			}
+
 		}
 
-		return masConsumibles.toString();
+		return masConsumibles;
 	}
 
 	public String pedidosPorCocinero() {
-		
+
 		List<Cocinero> cocineros = new ArrayList<>();
-		HashMap<Cocinero,Integer>mapCocineros =new HashMap<Cocinero, Integer>();
+		HashMap<Cocinero, Integer> mapCocineros = new HashMap<Cocinero, Integer>();
 
 		for (Empleado empCocinero : empleados) {
 			if (empCocinero.getClass().getSimpleName().equals("Cocinero")) {
 				cocineros.add((Cocinero) empCocinero);
 			}
 		}
-		
+
 		for (Cocinero cocinero : cocineros) {
 			mapCocineros.put(cocinero, cocinero.getNumeroPedidos());
 		}
-		
-		Cocinero maxCocinero =  Collections.max
-				(mapCocineros.entrySet(),
+
+		Cocinero maxCocinero = Collections.max(mapCocineros.entrySet(),
 				(cocinero, pedidosCocinero) -> cocinero.getValue() - pedidosCocinero.getValue()).getKey();
-		
+
 		return maxCocinero.toString();
 	}
 
-	/*
-	 * public Boolean agregarComanda (Comanda comanda) {
-	 * 
-	 * if(comandas.contains(comanda)) {
-	 * System.out.println("Esta comanda ya existe en el servicio"); return false; }
-	 * if(!(empleados.contains(comanda.getMozo()))) {
-	 * empleados.add(comanda.getMozo()); } if(!(mesas.contains(comanda.getMesa())))
-	 * { mesas.add(comanda.getMesa()); }
-	 * 
-	 * comandas.add(comanda); return true; }
-	 */
-
-	/*
-	 * public static void mozoMesasAsignadas (Mesa mesa, List<Mozo> mozos) { int min
-	 * = mozos.get(0).getMesas().size(); int index = 0;
-	 * 
-	 * for (int i = 0 ; i <= mozos.size(); i ++ ) {
-	 * if(mozos.get(i).getMesas().size() < min) { index = i; min =
-	 * mozos.get(i).getMesas().size(); } }
-	 * 
-	 * mozos.get(index).getMesas().add(mesa); }
-	 */
+	
 
 }

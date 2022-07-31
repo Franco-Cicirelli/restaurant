@@ -35,8 +35,8 @@ public class Mozo extends Empleado {
 	{
 		
 		boolean disponibilidad = true;
-		//capacidad maxima de trabajo 3 mesas
-		if(this.mesas.size() >= 3)
+		//capacidad maxima de trabajo 4 mesas
+		if(this.mesas.size() > 4)
 		{
 			return disponibilidad = false;
 		}

@@ -44,11 +44,13 @@ public class Cocinero extends Empleado {
 
 	@Override
 	public String toString() {
-		return "\nCocinero : "
-				+ "[aniosExperiencia=" 
+		return "\n***Cocinero***"
+				+ "\n- Años de experiencia : " 
 				+ aniosExperiencia 
-				+ "- Nombre: "
-				+ this.getNombre();
+				+ "\n- Nombre: "
+				+ this.getNombre()
+				+ "\n- Cantidad de pedidos: "
+				+ totalPedidos;
 	}
 
 	
